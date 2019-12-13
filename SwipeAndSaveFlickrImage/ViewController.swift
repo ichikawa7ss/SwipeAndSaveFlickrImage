@@ -10,11 +10,20 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let flickrClient = FlickrAPIClient()
+    let request = SearchPhotoRequest(flickrMethod: .interesting)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        flickrClient.send(request: request) { result in
+            switch result {
+            case let .success(response):
+                print(response)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-
-
 }
 
