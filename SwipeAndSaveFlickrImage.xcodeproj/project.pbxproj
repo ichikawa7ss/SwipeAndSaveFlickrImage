@@ -105,13 +105,29 @@
 		CCD519D923A3511100E86303 /* FlickrAPI */ = {
 			isa = PBXGroup;
 			children = (
+				CCD519E323A35D4D00E86303 /* Response */,
+				CCD519E223A35D2D00E86303 /* Request */,
+				CCD519DE23A355DC00E86303 /* FlickrAPIClient.swift */,
+			);
+			path = FlickrAPI;
+			sourceTree = "<group>";
+		};
+		CCD519E223A35D2D00E86303 /* Request */ = {
+			isa = PBXGroup;
+			children = (
 				CCD519DA23A3514000E86303 /* FlickrRequest.swift */,
 				CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */,
-				CCD519DE23A355DC00E86303 /* FlickrAPIClient.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		CCD519E323A35D4D00E86303 /* Response */ = {
+			isa = PBXGroup;
+			children = (
 				CCD519D723A34CCB00E86303 /* PhotoResponse.swift */,
 				CCD519E023A3576E00E86303 /* Result.swift */,
 			);
-			path = FlickrAPI;
+			path = Response;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
