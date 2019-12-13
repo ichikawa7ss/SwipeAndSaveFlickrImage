@@ -15,6 +15,7 @@
 		CCD519D023A34A1B00E86303 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD519CE23A34A1B00E86303 /* LaunchScreen.storyboard */; };
 		CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519D723A34CCB00E86303 /* PhotoResponse.swift */; };
 		CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DA23A3514000E86303 /* FlickrRequest.swift */; };
+		CCD519DD23A3528400E86303 /* SearchPhotoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CCD519D123A34A1C00E86303 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCD519D723A34CCB00E86303 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
 		CCD519DA23A3514000E86303 /* FlickrRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrRequest.swift; sourceTree = "<group>"; };
+		CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				CCD519DA23A3514000E86303 /* FlickrRequest.swift */,
+				CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */,
 			);
 			path = FlickrAPI;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCD519DD23A3528400E86303 /* SearchPhotoRequest.swift in Sources */,
 				CCD519C823A34A1400E86303 /* ViewController.swift in Sources */,
 				CCD519C423A34A1400E86303 /* AppDelegate.swift in Sources */,
 				CCD519C623A34A1400E86303 /* SceneDelegate.swift in Sources */,

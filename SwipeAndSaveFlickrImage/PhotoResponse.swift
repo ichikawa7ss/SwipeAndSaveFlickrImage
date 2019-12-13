@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PhotoResponse: Codable{
+struct SearchPhotoResponse: Codable{
     var photos : [Photo] = []
     let totalCountStr : String
     var totalCount : Int {
@@ -37,7 +37,7 @@ struct PhotoResponse: Codable{
         let dateTakenStr:String?
         var dateTaken:Date? {
             guard let dateStr = dateTakenStr else { return nil }
-            return PhotoResponse.Photo.dateFormatter.date(from: dateStr)
+            return SearchPhotoResponse.Photo.dateFormatter.date(from: dateStr)
         }
         
         enum CodingKeys : String, CodingKey {
