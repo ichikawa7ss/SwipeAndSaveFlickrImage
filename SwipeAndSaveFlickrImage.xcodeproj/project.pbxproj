@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DA23A3514000E86303 /* FlickrRequest.swift */; };
 		CCD519DD23A3528400E86303 /* SearchPhotoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */; };
 		CCD519DF23A355DC00E86303 /* FlickrAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DE23A355DC00E86303 /* FlickrAPIClient.swift */; };
+		CCD519E123A3576E00E86303 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519E023A3576E00E86303 /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		CCD519DA23A3514000E86303 /* FlickrRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrRequest.swift; sourceTree = "<group>"; };
 		CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoRequest.swift; sourceTree = "<group>"; };
 		CCD519DE23A355DC00E86303 /* FlickrAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrAPIClient.swift; sourceTree = "<group>"; };
+		CCD519E023A3576E00E86303 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		F270B3C8E17E9EE7A1AB199B /* Pods-SwipeAndSaveFlickrImage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeAndSaveFlickrImage.release.xcconfig"; path = "Target Support Files/Pods-SwipeAndSaveFlickrImage/Pods-SwipeAndSaveFlickrImage.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,7 +58,6 @@
 				0B1D6D371723E5ADE582C9A1 /* Pods-SwipeAndSaveFlickrImage.debug.xcconfig */,
 				F270B3C8E17E9EE7A1AB199B /* Pods-SwipeAndSaveFlickrImage.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -108,6 +109,7 @@
 				CCD519DC23A3528400E86303 /* SearchPhotoRequest.swift */,
 				CCD519DE23A355DC00E86303 /* FlickrAPIClient.swift */,
 				CCD519D723A34CCB00E86303 /* PhotoResponse.swift */,
+				CCD519E023A3576E00E86303 /* Result.swift */,
 			);
 			path = FlickrAPI;
 			sourceTree = "<group>";
@@ -233,6 +235,7 @@
 				CCD519C423A34A1400E86303 /* AppDelegate.swift in Sources */,
 				CCD519C623A34A1400E86303 /* SceneDelegate.swift in Sources */,
 				CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */,
+				CCD519E123A3576E00E86303 /* Result.swift in Sources */,
 				CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
