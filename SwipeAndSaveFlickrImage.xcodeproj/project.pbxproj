@@ -14,6 +14,7 @@
 		CCD519CD23A34A1B00E86303 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD519CC23A34A1B00E86303 /* Assets.xcassets */; };
 		CCD519D023A34A1B00E86303 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD519CE23A34A1B00E86303 /* LaunchScreen.storyboard */; };
 		CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519D723A34CCB00E86303 /* PhotoResponse.swift */; };
+		CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519DA23A3514000E86303 /* FlickrRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		CCD519CF23A34A1B00E86303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCD519D123A34A1C00E86303 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CCD519D723A34CCB00E86303 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
+		CCD519DA23A3514000E86303 /* FlickrRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		CCD519C223A34A1400E86303 /* SwipeAndSaveFlickrImage */ = {
 			isa = PBXGroup;
 			children = (
+				CCD519D923A3511100E86303 /* FlickrAPI */,
 				CCD519C323A34A1400E86303 /* AppDelegate.swift */,
 				CCD519C523A34A1400E86303 /* SceneDelegate.swift */,
 				CCD519C723A34A1400E86303 /* ViewController.swift */,
@@ -68,6 +71,14 @@
 				CCD519D723A34CCB00E86303 /* PhotoResponse.swift */,
 			);
 			path = SwipeAndSaveFlickrImage;
+			sourceTree = "<group>";
+		};
+		CCD519D923A3511100E86303 /* FlickrAPI */ = {
+			isa = PBXGroup;
+			children = (
+				CCD519DA23A3514000E86303 /* FlickrRequest.swift */,
+			);
+			path = FlickrAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 				CCD519C823A34A1400E86303 /* ViewController.swift in Sources */,
 				CCD519C423A34A1400E86303 /* AppDelegate.swift in Sources */,
 				CCD519C623A34A1400E86303 /* SceneDelegate.swift in Sources */,
+				CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */,
 				CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
