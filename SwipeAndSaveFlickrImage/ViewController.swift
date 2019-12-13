@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var testImageView: UIImageView!
+    
     let flickrClient = FlickrAPIClient()
     let request = SearchPhotoRequest(flickrMethod: .interesting)
     
@@ -19,7 +21,12 @@ class ViewController: UIViewController {
         flickrClient.send(request: request) { result in
             switch result {
             case let .success(response):
-                print(response)
+                for photo in response.photos {
+                    if let url = photo.url {
+                        self.flickrClient.getFlickrImage(url: url, imageView: self.testImageView)
+                        return
+                    }
+                }
             case .failure(let error):
                 print(error)
             }

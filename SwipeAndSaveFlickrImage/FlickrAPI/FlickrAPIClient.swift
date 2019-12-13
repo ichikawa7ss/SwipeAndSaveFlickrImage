@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import AlamofireImage
 
 class FlickrAPIClient {
     
@@ -24,7 +25,6 @@ class FlickrAPIClient {
             case .success(_):
                 do {
                     let response = try request.response(from: response.data!)
-
                     // 呼び出し元の処理を実行
                     completion(Result(value: response))
                 } catch let error {
@@ -38,5 +38,11 @@ class FlickrAPIClient {
                 print(error)
             }
         }
+    }
+    
+    // URLから画像キャッシュライブラリにて画像をセット
+    func getFlickrImage (url: URL,imageView: UIImageView){
+        let placeholderImage = UIImage(systemName: "cloud.heavyrain.fill")
+        imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
     }
 }
