@@ -15,5 +15,4 @@ struct SearchPhotoRequest : FlickrRequest {
     var extras: [URLQueryItem]? = [
         URLQueryItem(name: "extras", value: "url_h,width_h,height_h,date_taken")
     ]
-    var queryItems: [URLQueryItem]
 }
