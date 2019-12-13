@@ -7,4 +7,5 @@ target 'SwipeAndSaveFlickrImage' do
 
   # Pods for SwipeAndSaveFlickrImage
   pod 'Alamofire'
+  pod 'AlamofireImage'
 end
