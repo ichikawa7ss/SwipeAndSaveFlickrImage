@@ -15,11 +15,16 @@ struct SearchPhotoResponse: Codable{
         return Int(totalCountStr) ?? 0
     }
     
+    // JSONレスポンスの一階層目
+    enum RootKeys : String, CodingKey {
+        case root = "photos"
+    }
+    
+    // JSONレスポンスの二階層目
     enum CodingKeys : String, CodingKey {
         case totalCountStr = "total"
         case photos = "photo"
     }
-    
     
     struct Photo : Codable{
         let id:String
@@ -54,6 +59,14 @@ struct SearchPhotoResponse: Codable{
             formatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
             return formatter
         }()
+    }
+    
+    // ネストしたJSONレスポンスから各データへマッピングを行う
+    init(from decoder: Decoder) throws {
+        let root = try decoder.container(keyedBy: RootKeys.self)
+        let values = try root.nestedContainer(keyedBy: CodingKeys.self, forKey: .root)
+        totalCountStr = try values.decode(String.self, forKey: .totalCountStr)
+        photos = try values.decode([Photo].self, forKey: .photos)
     }
 }
 

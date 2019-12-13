@@ -21,8 +21,17 @@ class FlickrAPIClient {
         Alamofire.request(url).validate(statusCode: 200..<400).responseJSON { response in
             // Resultの結果で場合分け
             switch response.result {
-            case .success(let value):
-                print(value)
+            case .success(_):
+                do {
+                    let response = try request.response(from: response.data!)
+
+                    // 呼び出し元の処理を実行
+                    completion(Result(value: response))
+                } catch let error {
+                        // 不正なレスポンス
+                        print(error)
+                }
+
             case .failure(let error):
                 // 通信に関する失敗
                 // alamofireから吐かれたエラー
