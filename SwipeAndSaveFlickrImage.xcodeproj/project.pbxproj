@@ -13,6 +13,7 @@
 		CCD519CB23A34A1400E86303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD519C923A34A1400E86303 /* Main.storyboard */; };
 		CCD519CD23A34A1B00E86303 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCD519CC23A34A1B00E86303 /* Assets.xcassets */; };
 		CCD519D023A34A1B00E86303 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCD519CE23A34A1B00E86303 /* LaunchScreen.storyboard */; };
+		CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD519D723A34CCB00E86303 /* PhotoResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		CCD519CC23A34A1B00E86303 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCD519CF23A34A1B00E86303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCD519D123A34A1C00E86303 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCD519D723A34CCB00E86303 /* PhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				CCD519CC23A34A1B00E86303 /* Assets.xcassets */,
 				CCD519CE23A34A1B00E86303 /* LaunchScreen.storyboard */,
 				CCD519D123A34A1C00E86303 /* Info.plist */,
+				CCD519D723A34CCB00E86303 /* PhotoResponse.swift */,
 			);
 			path = SwipeAndSaveFlickrImage;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				CCD519C823A34A1400E86303 /* ViewController.swift in Sources */,
 				CCD519C423A34A1400E86303 /* AppDelegate.swift in Sources */,
 				CCD519C623A34A1400E86303 /* SceneDelegate.swift in Sources */,
+				CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
