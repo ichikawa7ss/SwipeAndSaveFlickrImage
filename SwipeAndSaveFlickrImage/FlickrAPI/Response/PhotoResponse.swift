@@ -46,10 +46,6 @@ struct Photo : Codable{
 
 struct SearchPhotoResponse: Codable{
     var photos : [Photo] = []
-    let totalCountStr : String
-    var totalCount : Int {
-        return Int(totalCountStr) ?? 0
-    }
     
     // JSONレスポンスの一階層目
     enum RootKeys : String, CodingKey {
@@ -58,7 +54,6 @@ struct SearchPhotoResponse: Codable{
     
     // JSONレスポンスの二階層目
     enum CodingKeys : String, CodingKey {
-        case totalCountStr = "total"
         case photos = "photo"
     }
 
@@ -66,7 +61,6 @@ struct SearchPhotoResponse: Codable{
     init(from decoder: Decoder) throws {
         let root = try decoder.container(keyedBy: RootKeys.self)
         let values = try root.nestedContainer(keyedBy: CodingKeys.self, forKey: .root)
-        totalCountStr = try values.decode(String.self, forKey: .totalCountStr)
         photos = try values.decode([Photo].self, forKey: .photos)
     }
 }

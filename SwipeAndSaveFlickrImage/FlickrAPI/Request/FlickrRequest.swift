@@ -20,7 +20,8 @@ protocol FlickrRequest {
     var baseURL : URL { get }
     var flickrMethod : FlickrMethod { get }
     var queryItems: [URLQueryItem] { get }
-    var extras : [URLQueryItem]? { get }
+    var appendix : [URLQueryItem]? { get }
+    var keyword : String? { get set }
 
 }
 
@@ -29,7 +30,7 @@ extension FlickrRequest {
         return URL(string: "https://www.flickr.com/services/rest")!
     }
     
-    var queryItems :[URLQueryItem] {
+    var queryItems : [URLQueryItem] {
         // 基本のクエリパラーメータ
         var baseQueryItem: [URLQueryItem] =
         [
@@ -37,19 +38,28 @@ extension FlickrRequest {
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "api_key", value: "fda2005ab7115e9f1d44f3e810a81b42"),
             URLQueryItem(name: "nojsoncallback", value:"1"),
+            URLQueryItem(name: "extras", value: "url_h,width_h,height_h,date_taken"),
+            URLQueryItem(name: "safe_search", value: "1")
         ]
         
         // APIの種類に応じて追加のパラメータを追加
-        if let extras = extras {
+        if let extras = appendix {
             for extra in extras {
                 baseQueryItem.append(extra)
             }
         }
-        
         return baseQueryItem
     }
     
-    // TODO extrasをメソッドによってかき
+    // メソッドに応じて追加パラメータをかき分け
+    var appendix: [URLQueryItem]? {
+        switch self.flickrMethod {
+        case .search:
+            return [URLQueryItem(name: "text", value: keyword)]
+        case .interesting: return nil
+        case .recent: return nil
+        }
+    }
     
     // クエリパラメータを追加したリクエスト用のURLの作成
     func buildUrl() -> URL {
