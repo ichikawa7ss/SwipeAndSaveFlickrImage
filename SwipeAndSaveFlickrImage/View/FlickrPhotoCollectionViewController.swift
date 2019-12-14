@@ -74,11 +74,19 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
 // MARK: - UISearchBarDelegate
 extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        presenter.didTapSearchButton(text: searchBar.text)
-
+        do {
+            // 検索処理をpuresenterへ委譲
+            try presenter.didTapSearchButton(text: searchBar.text)
+        } catch RequestError.noKeyword(let message) {
+            // 入力値がなければエラーアラートを表示
+            showOkAlert(title: message)
+        } catch {
+            print("その他のエラー")
+        }
     }
 }
 

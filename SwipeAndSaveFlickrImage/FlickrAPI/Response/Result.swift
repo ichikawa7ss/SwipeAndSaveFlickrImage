@@ -20,3 +20,7 @@ enum Result<T, Error: Swift.Error> {
         self = .failure(error)
     }
 }
+
+enum RequestError : Error {
+    case noKeyword(String)
+}
