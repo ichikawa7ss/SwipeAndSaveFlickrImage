@@ -8,15 +8,16 @@
 
 import UIKit
 
-class FlickrPhotoCollectionViewController: UIViewController {
+final class FlickrPhotoCollectionViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let flickrClient = FlickrAPIClient()
-    let request = SearchPhotoRequest(flickrMethod: .interesting)
-    var response : SearchPhotoResponse?
-        
+    private var presenter: SearchPhotoPresenterInput!
+    func inject(presenter: SearchPhotoPresenterInput) {
+        self.presenter = presenter
+    }
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -32,19 +33,21 @@ class FlickrPhotoCollectionViewController: UIViewController {
         collectionView.register(nib, forCellWithReuseIdentifier: "ImageCell")
         
         let flowLayout = UICollectionViewFlowLayout()
-        let margin: CGFloat = 0.5
-        let length: CGFloat = self.view.frame.width / 3 - 1.5
+        let margin: CGFloat = 0
+        let length: CGFloat = self.view.frame.width / 3
         flowLayout.itemSize = CGSize(width: length, height: length)
         flowLayout.minimumInteritemSpacing = margin
         flowLayout.minimumLineSpacing = margin
-        flowLayout.sectionInset = UIEdgeInsets(top: 10, left: margin, bottom: margin, right: margin)
+        flowLayout.sectionInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
         collectionView.collectionViewLayout = flowLayout
     }
 }
 
 // MARK:  - UICollectionViewDelegate
 extension FlickrPhotoCollectionViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItem(at: indexPath)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -55,15 +58,15 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return response?.photos.count ?? 0
+        return presenter.numberOfPhotos
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)as! FlickrPhotoCollectionViewCell
 
-        if let url = self.response?.photos[indexPath.row].url {
-            print("index:\(indexPath.row)")
-            flickrClient.getFlickrImage(url: url, imageView: cell.flickrPhotoImage)
+        if let url = presenter.photo(forItem: indexPath.row)?.url {
+            let placeholderImage = UIImage(systemName: "photo")
+            cell.flickrPhotoImage.af_setImage(withURL: url, placeholderImage: placeholderImage)
         } else {
             cell.flickrPhotoImage.image = UIImage(systemName: "photo")
         }
@@ -74,18 +77,19 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
 // MARK: - UISearchBarDelegate
 extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        print("clicked")
-        
-        flickrClient.send(request: request) { result in
-            switch result {
-            case let .success(response):
-                self.response = response
-                self.collectionView.reloadData()
-                print(self.response)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        presenter.didTapSearchButton(text: searchBar.text)
+
+    }
+}
+
+// MARK:  - UICollectionViewDelegate
+extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
+    func updatePhotos(_ photos: [Photo]) {
+        collectionView.reloadData()
+    }
+    
+    func transitionToCardView(photoNum: Int) {
+        print("Tinder風画面へ遷移")
+        let photos = presenter.photos
     }
 }

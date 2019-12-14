@@ -10,6 +10,7 @@ import Foundation
 
 /// 画像情報検索プレゼンターの入力に関するプロトコル
 protocol SearchPhotoPresenterInput {
+    var photos: [Photo] { get }
     var numberOfPhotos: Int { get }
     func photo(forItem index: Int) -> Photo?
     func didSelectItem(at indexPath: IndexPath)
@@ -23,9 +24,7 @@ protocol SearchPhotoPresenterOutput: AnyObject {
 }
 
 /// 画像情報検索プレゼンター
-class SearchPhotoPresenter : SearchPhotoPresenterInput {
-    // 画像はプレゼンタークラス内からのみ変更可能
-    private(set) var photos: [Photo] = []
+final class SearchPhotoPresenter : SearchPhotoPresenterInput {
 
     // viewは処理を委譲する
     private weak var view: SearchPhotoPresenterOutput!
@@ -36,13 +35,16 @@ class SearchPhotoPresenter : SearchPhotoPresenterInput {
         self.model = model
     }
 
+    // 画像はプレゼンタークラス内からのみ変更可能
+    private(set) var photos: [Photo] = []
+    
     var numberOfPhotos: Int {
         return photos.count
     }
     
     func photo(forItem index: Int) -> Photo? {
         guard index < photos.count else { return nil }
-        return photos[index]
+        return self.photos[index]
     }
     
     func didSelectItem(at indexPath: IndexPath) {
@@ -56,9 +58,7 @@ class SearchPhotoPresenter : SearchPhotoPresenterInput {
         model.fetchFlickrPhoto(request: request, completion: { result in
             switch result {
             case .success(let response):
-                print("a")
                 self.photos = response.photos
-                
                 DispatchQueue.main.async {
                     self.view.updatePhotos(self.photos)
                 }
