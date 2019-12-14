@@ -10,9 +10,8 @@ import Foundation
 
 /// 画像情報検索モデルへの入力に関するプロトコル
 protocol SearchPhotoModelInput {
-    // TODO:completionの型付け
     func fetchFlickrPhoto<Request: FlickrRequest>
-        (request: Request,completion: @escaping (Result<Any,Error>) -> ())
+        (request: Request,completion: @escaping (Result<Request.Response,Error>) -> ())
 }
 
 /// 画像情報検索用モデル
@@ -21,7 +20,7 @@ final class SearchPhotoModel : SearchPhotoModelInput {
     /// Flickrの画像情報の取得を行う
     /// - Parameter request: APIリクエスト
     /// - Parameter completion: 完了ハンドラ
-    func fetchFlickrPhoto<Request>(request: Request, completion: @escaping (Result<Any,Error>) -> ()) where Request : FlickrRequest {
+    func fetchFlickrPhoto<Request>(request: Request, completion: @escaping (Result<Request.Response,Error>) -> ()) where Request : FlickrRequest {
         
         // APIクライアント
         let flickrClient = FlickrAPIClient()
