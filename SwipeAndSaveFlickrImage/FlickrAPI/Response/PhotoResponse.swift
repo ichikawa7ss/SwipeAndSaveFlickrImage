@@ -8,6 +8,42 @@
 
 import Foundation
 
+struct Photo : Codable{
+    let id:String
+    let height: Int?
+    let width: Int?
+    
+    // JSONのレスポンスを受ける際に一度Stringで受ける
+    let urlStr: String?
+    var url: URL? {
+        guard let url = urlStr else { return nil }
+        return URL(string: url)
+    }
+    
+    // JSONのレスポンスを受ける際に一度Stringで受ける
+    let dateTakenStr:String?
+    var dateTaken:Date? {
+        guard let dateStr = dateTakenStr else { return nil }
+        return Photo.dateFormatter.date(from: dateStr)
+    }
+    
+    enum CodingKeys : String, CodingKey {
+        case id
+        case urlStr = "url_h"
+        case height = "height_h"
+        case width = "width_h"
+        case dateTakenStr = "datetaken"
+    }
+    
+    /// 日付フォーマッタ
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+        return formatter
+    }()
+}
+
+
 struct SearchPhotoResponse: Codable{
     var photos : [Photo] = []
     let totalCountStr : String
@@ -25,42 +61,7 @@ struct SearchPhotoResponse: Codable{
         case totalCountStr = "total"
         case photos = "photo"
     }
-    
-    struct Photo : Codable{
-        let id:String
-        let height: Int?
-        let width: Int?
-        
-        // JSONのレスポンスを受ける際に一度Stringで受ける
-        let urlStr: String?
-        var url: URL? {
-            guard let url = urlStr else { return nil }
-            return URL(string: url)
-        }
-        
-        // JSONのレスポンスを受ける際に一度Stringで受ける
-        let dateTakenStr:String?
-        var dateTaken:Date? {
-            guard let dateStr = dateTakenStr else { return nil }
-            return SearchPhotoResponse.Photo.dateFormatter.date(from: dateStr)
-        }
-        
-        enum CodingKeys : String, CodingKey {
-            case id
-            case urlStr = "url_h"
-            case height = "height_h"
-            case width = "width_h"
-            case dateTakenStr = "datetaken"
-        }
-        
-        /// 日付フォーマッタ
-        static let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
-            return formatter
-        }()
-    }
-    
+
     // ネストしたJSONレスポンスから各データへマッピングを行う
     init(from decoder: Decoder) throws {
         let root = try decoder.container(keyedBy: RootKeys.self)
