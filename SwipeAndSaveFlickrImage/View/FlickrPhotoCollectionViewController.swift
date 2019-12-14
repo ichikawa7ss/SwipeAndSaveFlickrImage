@@ -13,7 +13,10 @@ class FlickrPhotoCollectionViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
+    let flickrClient = FlickrAPIClient()
+    let request = SearchPhotoRequest(flickrMethod: .interesting)
+    var response : SearchPhotoResponse?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -52,11 +55,37 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return response?.photos.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)as! FlickrPhotoCollectionViewCell
+
+        if let url = self.response?.photos[indexPath.row].url {
+            print("index:\(indexPath.row)")
+            flickrClient.getFlickrImage(url: url, imageView: cell.flickrPhotoImage)
+        } else {
+            cell.flickrPhotoImage.image = UIImage(systemName: "photo")
+        }
+        
         return cell
+    }
+}
+// MARK: - UISearchBarDelegate
+extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        print("clicked")
+        
+        flickrClient.send(request: request) { result in
+            switch result {
+            case let .success(response):
+                self.response = response
+                self.collectionView.reloadData()
+                print(self.response)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

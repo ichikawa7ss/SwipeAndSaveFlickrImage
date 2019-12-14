@@ -42,7 +42,7 @@ class FlickrAPIClient {
     
     // URLから画像キャッシュライブラリにて画像をセット
     func getFlickrImage (url: URL,imageView: UIImageView){
-        let placeholderImage = UIImage(systemName: "cloud.heavyrain.fill")
+        let placeholderImage = UIImage(systemName: "photo")
         imageView.af_setImage(withURL: url, placeholderImage: placeholderImage)
     }
 }
