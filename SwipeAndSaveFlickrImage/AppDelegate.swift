@@ -15,15 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        print(storyboard)
         let searchPhotoViewController = storyboard.instantiateInitialViewController() as! FlickrPhotoCollectionViewController
 
         let model = SearchPhotoModel()
         let presenter = SearchPhotoPresenter(view: searchPhotoViewController, model: model)
         searchPhotoViewController.inject(presenter: presenter)
 
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = searchPhotoViewController
         window?.makeKeyAndVisible()
