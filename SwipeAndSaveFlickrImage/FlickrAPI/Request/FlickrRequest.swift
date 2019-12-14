@@ -39,7 +39,8 @@ extension FlickrRequest {
             URLQueryItem(name: "api_key", value: "fda2005ab7115e9f1d44f3e810a81b42"),
             URLQueryItem(name: "nojsoncallback", value:"1"),
             URLQueryItem(name: "extras", value: "url_h,width_h,height_h,date_taken"),
-            URLQueryItem(name: "safe_search", value: "1")
+            URLQueryItem(name: "safe_search", value: "1"),
+            URLQueryItem(name: "content_type", value: "1")
         ]
         
         // APIの種類に応じて追加のパラメータを追加

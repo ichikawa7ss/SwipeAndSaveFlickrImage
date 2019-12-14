@@ -66,7 +66,7 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
         model.fetchFlickrPhoto(request: request, completion: { result in
             switch result {
             case .success(let response):
-                self.photos = response.photos
+                self.photos = self.truncateNotNeedPhoto(photos: response.photos)
                 DispatchQueue.main.async {
                     self.view.updatePhotos(self.photos)
                 }
@@ -74,6 +74,20 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
                 // TODO: Error Handling
             }
         })
+    }
+    
+    private func truncateNotNeedPhoto (photos: [Photo]) -> [Photo] {
+        var newPhotos: [Photo] = []
+        for photo in photos  {
+            if let _ = photo.urlStr,
+                let width = photo.width,
+                let height = photo.height{
+                if Int(Double(width) * 1.4) < height {
+                    newPhotos.append(photo)
+                }
+            }
+        }
+        return newPhotos
     }
 }
 
