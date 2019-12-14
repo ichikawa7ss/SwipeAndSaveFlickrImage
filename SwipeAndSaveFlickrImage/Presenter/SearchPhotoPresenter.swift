@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import UIKit
 
 /// 画像情報検索プレゼンターの入力に関するプロトコル
 protocol SearchPhotoPresenterInput {
+    var photos: [Photo] { get }
     var numberOfPhotos: Int { get }
-    func photoImage(forItem index: Int) -> UIImageView?
+    func photo(forItem index: Int) -> Photo?
     func didSelectItem(at indexPath: IndexPath)
     func didTapSearchButton(text: String?)
 }
@@ -25,8 +25,6 @@ protocol SearchPhotoPresenterOutput: AnyObject {
 
 /// 画像情報検索プレゼンター
 final class SearchPhotoPresenter : SearchPhotoPresenterInput {
-    // 画像はプレゼンタークラス内からのみ変更可能
-    private(set) var photos: [Photo] = []
 
     // viewは処理を委譲する
     private weak var view: SearchPhotoPresenterOutput!
@@ -37,19 +35,16 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
         self.model = model
     }
 
+    // 画像はプレゼンタークラス内からのみ変更可能
+    private(set) var photos: [Photo] = []
+    
     var numberOfPhotos: Int {
         return photos.count
     }
     
-    func photoImage(forItem index: Int) -> UIImageView? {
+    func photo(forItem index: Int) -> Photo? {
         guard index < photos.count else { return nil }
-        guard let url = photos[index].url else { return nil }
-
-        let imageView = UIImageView()
-        let placeholderImage = UIImage(systemName: "photo")
-        imageView.af_setImage(withURL: url , placeholderImage: placeholderImage)
-
-        return imageView
+        return self.photos[index]
     }
     
     func didSelectItem(at indexPath: IndexPath) {
@@ -63,7 +58,7 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
         model.fetchFlickrPhoto(request: request, completion: { result in
             switch result {
             case .success(let response):
-                self.photos = response.photos                
+                self.photos = response.photos
                 DispatchQueue.main.async {
                     self.view.updatePhotos(self.photos)
                 }
