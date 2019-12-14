@@ -43,7 +43,7 @@
     <resources>
         <image name="photo" catalog="system" width="64" height="48"/>
         <namedColor name="BackgroundImageColor">
-            <color red="0.84449882075471705" green="0.84123820754716983" blue="0.84775943396226416" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.84399998188018799" green="0.8410000205039978" blue="0.84799998998641968" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

@@ -39,11 +39,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BJk-QP-NOI">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" placeholder="Keyword" translatesAutoresizingMaskIntoConstraints="NO" id="NC3-ST-aZp">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BJk-QP-NOI">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SL3-pn-J4i">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SL3-pn-J4i">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -53,10 +56,20 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="BJk-QP-NOI" firstAttribute="trailing" secondItem="jGL-lc-b8m" secondAttribute="trailing" id="01j-ff-CWO"/>
+                            <constraint firstItem="jGL-lc-b8m" firstAttribute="trailing" secondItem="NC3-ST-aZp" secondAttribute="trailing" id="3C9-Rd-A82"/>
+                            <constraint firstItem="NC3-ST-aZp" firstAttribute="leading" secondItem="jGL-lc-b8m" secondAttribute="leading" id="E2h-tR-w9p"/>
+                            <constraint firstItem="NC3-ST-aZp" firstAttribute="top" secondItem="jGL-lc-b8m" secondAttribute="top" id="FyC-lr-ptr"/>
+                            <constraint firstItem="BJk-QP-NOI" firstAttribute="bottom" secondItem="jGL-lc-b8m" secondAttribute="bottom" id="QhX-PN-tDG"/>
+                            <constraint firstItem="BJk-QP-NOI" firstAttribute="top" secondItem="NC3-ST-aZp" secondAttribute="bottom" id="gkk-pd-6yf"/>
+                            <constraint firstItem="BJk-QP-NOI" firstAttribute="leading" secondItem="jGL-lc-b8m" secondAttribute="leading" id="vgZ-wb-6mr"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jGL-lc-b8m"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="BJk-QP-NOI" id="EZA-Bt-lDj"/>
+                        <outlet property="searchBar" destination="NC3-ST-aZp" id="5KZ-wA-j00"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4NC-bv-3Ju" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
