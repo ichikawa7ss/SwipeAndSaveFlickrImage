@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A2BD24DA91F1EAE31CD21189 /* Pods_SwipeAndSaveFlickrImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BA55655CA557B0943A2DE20 /* Pods_SwipeAndSaveFlickrImage.framework */; };
 		CC787D6823A4A36200E4BB23 /* SearchPhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC787D6723A4A36200E4BB23 /* SearchPhotoModel.swift */; };
+		CC787D6B23A4AEFD00E4BB23 /* SearchPhotoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC787D6A23A4AEFD00E4BB23 /* SearchPhotoPresenter.swift */; };
 		CCCE15B023A374D300E32443 /* FlickrPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCE15AF23A374D300E32443 /* FlickrPhotoCollectionViewController.swift */; };
 		CCCE15B323A3783B00E32443 /* FlickrPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCE15B123A3783B00E32443 /* FlickrPhotoCollectionViewCell.swift */; };
 		CCCE15B423A3783B00E32443 /* FlickrPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCCE15B223A3783B00E32443 /* FlickrPhotoCollectionViewCell.xib */; };
@@ -29,6 +30,7 @@
 		0B1D6D371723E5ADE582C9A1 /* Pods-SwipeAndSaveFlickrImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipeAndSaveFlickrImage.debug.xcconfig"; path = "Target Support Files/Pods-SwipeAndSaveFlickrImage/Pods-SwipeAndSaveFlickrImage.debug.xcconfig"; sourceTree = "<group>"; };
 		0BA55655CA557B0943A2DE20 /* Pods_SwipeAndSaveFlickrImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwipeAndSaveFlickrImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC787D6723A4A36200E4BB23 /* SearchPhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoModel.swift; sourceTree = "<group>"; };
+		CC787D6A23A4AEFD00E4BB23 /* SearchPhotoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPhotoPresenter.swift; sourceTree = "<group>"; };
 		CCCE15AF23A374D300E32443 /* FlickrPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		CCCE15B123A3783B00E32443 /* FlickrPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CCCE15B223A3783B00E32443 /* FlickrPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlickrPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CC787D6923A4AEDD00E4BB23 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CC787D6A23A4AEFD00E4BB23 /* SearchPhotoPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		CCCE15AE23A3747900E32443 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +126,7 @@
 		CCD519C223A34A1400E86303 /* SwipeAndSaveFlickrImage */ = {
 			isa = PBXGroup;
 			children = (
+				CC787D6923A4AEDD00E4BB23 /* Presenter */,
 				CC787D6623A4A33600E4BB23 /* Model */,
 				CCCE15AE23A3747900E32443 /* View */,
 				CCD519D923A3511100E86303 /* FlickrAPI */,
@@ -283,6 +294,7 @@
 				CCD519C623A34A1400E86303 /* SceneDelegate.swift in Sources */,
 				CCD519DB23A3514000E86303 /* FlickrRequest.swift in Sources */,
 				CCD519E123A3576E00E86303 /* Result.swift in Sources */,
+				CC787D6B23A4AEFD00E4BB23 /* SearchPhotoPresenter.swift in Sources */,
 				CCCE15B023A374D300E32443 /* FlickrPhotoCollectionViewController.swift in Sources */,
 				CCD519D823A34CCB00E86303 /* PhotoResponse.swift in Sources */,
 			);
