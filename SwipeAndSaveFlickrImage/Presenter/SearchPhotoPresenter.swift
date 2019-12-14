@@ -14,7 +14,7 @@ protocol SearchPhotoPresenterInput {
     var numberOfPhotos: Int { get }
     func photo(forItem index: Int) -> Photo?
     func didSelectItem(at indexPath: IndexPath)
-    func didTapSearchButton(text: String?)
+    func didTapSearchButton(text: String?) throws
 }
 
 /// プレゼンターからの処理を委譲するプロトコル
@@ -51,14 +51,22 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
         view.transitionToCardView(photoNum: indexPath.row)
     }
     
-    func didTapSearchButton(text: String?) {
-        let request = SearchPhotoRequest(flickrMethod: .interesting)
+    func didTapSearchButton(text: String?) throws {
+        guard let text = text else {
+            throw RequestError.noKeyword("検索キーワードを入力してください")
+        }
+        // エラー処理
+        if text.isEmpty {
+            throw RequestError.noKeyword("検索キーワードを入力してください")
+        }
         
+        let request = SearchPhotoRequest(flickrMethod: .search, keyword: text)
+
         // モデルに画像取得処理を依頼
         model.fetchFlickrPhoto(request: request, completion: { result in
             switch result {
             case .success(let response):
-                self.photos = response.photos
+                self.photos = self.truncateNotNeedPhoto(photos: response.photos)
                 DispatchQueue.main.async {
                     self.view.updatePhotos(self.photos)
                 }
@@ -66,6 +74,20 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
                 // TODO: Error Handling
             }
         })
+    }
+    
+    private func truncateNotNeedPhoto (photos: [Photo]) -> [Photo] {
+        var newPhotos: [Photo] = []
+        for photo in photos  {
+            if let _ = photo.urlStr,
+                let width = photo.width,
+                let height = photo.height{
+                if Int(Double(width) * 1.4) < height {
+                    newPhotos.append(photo)
+                }
+            }
+        }
+        return newPhotos
     }
 }
 

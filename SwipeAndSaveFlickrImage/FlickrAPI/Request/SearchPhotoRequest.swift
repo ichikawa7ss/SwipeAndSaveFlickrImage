@@ -12,7 +12,5 @@ struct SearchPhotoRequest : FlickrRequest {
     typealias Response = SearchPhotoResponse
     
     var flickrMethod: FlickrMethod
-    var extras: [URLQueryItem]? = [
-        URLQueryItem(name: "extras", value: "url_h,width_h,height_h,date_taken")
-    ]
+    var keyword: String?
 }
