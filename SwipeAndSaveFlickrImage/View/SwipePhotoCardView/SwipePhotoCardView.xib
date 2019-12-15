@@ -7,9 +7,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SwipePhotoCardView" customModule="SwipeAndSaveFlickrImage" customModuleProvider="target">
+            <connections>
+                <outlet property="photoImageView" destination="rnJ-mX-Bvr" id="1ul-nb-FdG"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="5af-3M-Eb5" customClass="SwipePhotoCardView" customModule="SwipeAndSaveFlickrImage" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="5af-3M-Eb5">
             <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -17,7 +21,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="756"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="rnJ-mX-Bvr" firstAttribute="leading" secondItem="46f-eT-yk6" secondAttribute="leading" id="8x7-GT-jAv"/>
                 <constraint firstItem="46f-eT-yk6" firstAttribute="bottom" secondItem="rnJ-mX-Bvr" secondAttribute="bottom" id="S2G-JH-r3k"/>
@@ -26,9 +30,6 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="46f-eT-yk6"/>
-            <connections>
-                <outlet property="photoImageView" destination="rnJ-mX-Bvr" id="iUY-BL-yn5"/>
-            </connections>
             <point key="canvasLocation" x="-664" y="94"/>
         </view>
     </objects>

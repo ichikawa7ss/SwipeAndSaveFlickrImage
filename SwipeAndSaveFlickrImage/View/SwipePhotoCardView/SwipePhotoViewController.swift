@@ -25,6 +25,10 @@ final class SwipePhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addPhotoCardSetViews(bounds:
+            self.setLoadPhotoRange(photoNum: self.photos!.count, isInit: true))
+
     }
     
     // MARK: - Fileprivate Function
@@ -158,6 +162,7 @@ final class SwipePhotoViewController: UIViewController {
     fileprivate func saveImage (targetImage: UIImage?) {
         guard let image = targetImage else { return }
 
+        // TODO info.plistの設定追加
         if UserDefaults.standard.object(forKey: "omitConfirmationFlg") == nil {
             /// 非表示希望者以外（初回のユーザ含む）には保存についての確認をアラートで表示
             let alertController = UIAlertController(title: "iPhoneへの保存", message: "この画像をiPhoneへ保存しますか？", preferredStyle: .alert)

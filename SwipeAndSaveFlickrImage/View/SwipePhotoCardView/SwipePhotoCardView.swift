@@ -127,6 +127,8 @@ class SwipePhotoCardView: UIView {
     // MARK: - Function
 
     func setViewData(_ photo: Photo) {
+        let placeholderImage = UIImage(systemName: "photo")
+        self.photoImageView.af_setImage(withURL: photo.url!, placeholderImage: placeholderImage)
     }
     
     // MARK: - Private Function
