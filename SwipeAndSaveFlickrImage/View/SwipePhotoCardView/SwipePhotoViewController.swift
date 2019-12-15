@@ -11,6 +11,7 @@ import UIKit
 final class SwipePhotoViewController: UIViewController {
 
     public var photos: [Photo]?
+    public var firstIndex = 0
     
     // カード表示用のViewを格納するための配列
     fileprivate var swipePhotoList: [SwipePhotoCardView] = []
