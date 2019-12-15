@@ -97,8 +97,8 @@ class SwipePhotoCardView: UIView {
         let viewClass: AnyClass = type(of: self)
 
         /// 追加するcontentViewに関する設定をする
-        contentView = Bundle(for: viewClass)
-            .loadNibNamed(String(describing: viewClass), owner: self, options: nil)?.first as? UIView
+        contentView = Bundle(for: viewClass).loadNibNamed(String(describing: viewClass), owner: self, options: nil)?.first as? UIView
+
         contentView.autoresizingMask = autoresizingMask
         contentView.frame = bounds
         contentView.translatesAutoresizingMaskIntoConstraints = false
