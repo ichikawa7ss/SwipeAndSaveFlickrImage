@@ -93,6 +93,7 @@ final class SwipePhotoViewController: UIViewController {
     // MARK: - スワイプ後の処理
     
     
+    /// presenter
     /// 単位回数画像をスワイプしたとき（設定では５回）に次の画像を取得する指示を出す
     fileprivate func setAdditionPhotoByUnitTimes () {
         
@@ -146,6 +147,7 @@ final class SwipePhotoViewController: UIViewController {
         
     }
     
+    // model
     /**
      画像保存する際のアラートを表示
      OKであれば画像を保存する

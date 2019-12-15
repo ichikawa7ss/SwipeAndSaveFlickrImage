@@ -104,12 +104,8 @@
 		CCCE15AE23A3747900E32443 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CCCE15AF23A374D300E32443 /* FlickrPhotoCollectionViewController.swift */,
-				CCCE15B123A3783B00E32443 /* FlickrPhotoCollectionViewCell.swift */,
-				CCCE15B223A3783B00E32443 /* FlickrPhotoCollectionViewCell.xib */,
-				CCEA3BAB23A54A6A00D2BDF7 /* SwipePhotoViewController.swift */,
-				CCEA3BAF23A54DE900D2BDF7 /* SwipePhotoCardView.xib */,
-				CCEA3BB123A54E0400D2BDF7 /* SwipePhotoCardView.swift */,
+				CCEA3BB323A5633700D2BDF7 /* PhotoCollectionView */,
+				CCEA3BB423A5635700D2BDF7 /* SwipePhotoCardView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -184,6 +180,26 @@
 				CCEA3BA923A51A1500D2BDF7 /* ErrorAlertExtension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		CCEA3BB323A5633700D2BDF7 /* PhotoCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				CCCE15AF23A374D300E32443 /* FlickrPhotoCollectionViewController.swift */,
+				CCCE15B123A3783B00E32443 /* FlickrPhotoCollectionViewCell.swift */,
+				CCCE15B223A3783B00E32443 /* FlickrPhotoCollectionViewCell.xib */,
+			);
+			path = PhotoCollectionView;
+			sourceTree = "<group>";
+		};
+		CCEA3BB423A5635700D2BDF7 /* SwipePhotoCardView */ = {
+			isa = PBXGroup;
+			children = (
+				CCEA3BAB23A54A6A00D2BDF7 /* SwipePhotoViewController.swift */,
+				CCEA3BAF23A54DE900D2BDF7 /* SwipePhotoCardView.xib */,
+				CCEA3BB123A54E0400D2BDF7 /* SwipePhotoCardView.swift */,
+			);
+			path = SwipePhotoCardView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
