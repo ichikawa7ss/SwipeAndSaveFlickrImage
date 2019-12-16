@@ -90,6 +90,8 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
 // MARK: - UISearchBarDelegate
 extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // 検索ボタン押下時にキーボードを閉じる
+        searchBar.resignFirstResponder()
         do {
             // 検索処理をpuresenterへ委譲
             try presenter.didTapSearchButton(text: searchBar.text)
@@ -104,7 +106,15 @@ extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
 
 // MARK:  - UICollectionViewDelegate
 extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
-    func updatePhotos(_ photos: [Photo]) {
+    /// 画像一覧を更新
+    func updatePhotos(photos: [Photo]) {
+        // 検索結果が0ならアラートを出し、画面更新はしない
+        if (photos.count == 0) {
+            showOkAlert(title: "検索にヒットする画像はありませんでした")
+            return
+        }
+        
+        // 0以上なら画面を更新
         collectionView.reloadData()
     }
     

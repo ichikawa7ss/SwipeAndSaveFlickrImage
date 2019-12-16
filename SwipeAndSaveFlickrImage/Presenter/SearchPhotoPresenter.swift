@@ -19,7 +19,7 @@ protocol SearchPhotoPresenterInput {
 
 /// プレゼンターからの処理を委譲するプロトコル
 protocol SearchPhotoPresenterOutput: AnyObject {
-    func updatePhotos(_ photos: [Photo])
+    func updatePhotos(photos: [Photo])
     func transitionToCardView(photoNum: Int)
 }
 
@@ -68,7 +68,7 @@ final class SearchPhotoPresenter : SearchPhotoPresenterInput {
             case .success(let response):
                 self.photos = self.truncateNotNeedPhoto(photos: response.photos)
                 DispatchQueue.main.async {
-                    self.view.updatePhotos(self.photos)
+                    self.view.updatePhotos(photos: self.photos)
                 }
             case .failure( _): break
                 // TODO: Error Handling
