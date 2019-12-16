@@ -126,9 +126,12 @@ class SwipePhotoCardView: UIView {
     
     // MARK: - Function
 
-    func setViewData(_ photo: Photo) {
+    internal func setViewData(_ photo: Photo) {
         let placeholderImage = UIImage(systemName: "photo")
         self.photoImageView.af_setImage(withURL: photo.url!, placeholderImage: placeholderImage)
+        self.photoImageView.layer.cornerRadius = CGFloat(20.0)
+        self.photoImageView.layer.masksToBounds = true
+        self.photoImageView.contentMode = UIView.ContentMode.scaleAspectFill
     }
     
     // MARK: - Private Function
@@ -227,7 +230,7 @@ class SwipePhotoCardView: UIView {
     // このViewに対する初期設定を行う
     private func setupPhotoCardSetView() {
         
-        // カード状のViewに関する基本的な設定 ※設定できるパラメータは全てPhotoCardDefaultSettings.swiftへ委譲している
+        // カード状のViewに関する基本的な設定
         self.clipsToBounds  = true
         self.frame = CGRect(
             origin: CGPoint.zero,
@@ -239,11 +242,6 @@ class SwipePhotoCardView: UIView {
         
         /// 画面の中心に配置
         setInitialPosition()
-        
-        /// 背景のViewに関する設定を実装
-        self.layer.masksToBounds = false
-        self.layer.borderWidth   = 2.0
-        self.layer.cornerRadius  = 20.0
     }
     
     /// このViewのUIPanGestureRecognizerの付与を行う
