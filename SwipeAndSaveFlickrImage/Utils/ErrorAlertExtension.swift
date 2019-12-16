@@ -27,17 +27,21 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // メッセージとOKボタンのアラート文を表示
+    /// メッセージとOKボタンのアラート文を表示
     func showOkAlert (title : String) {
         showOkAlert(title: title) {
         }
     }
     
+    
+    /// 画像保存確認のアラートを表示
+    /// - Parameter completion:
     func showAlertForPhotoSave(completion: @escaping () -> ()) {
         let alertController = UIAlertController(title: "iPhoneへの保存", message: "この画像をiPhoneへ保存しますか？", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
             /// OKが選択されればアルバムに画像を保存し、アラートの表示設定について確認
+            completion()
         }
 
         let cancelAction = UIAlertAction(title: "キャンセル", style: .default) { (cancel) in
@@ -49,6 +53,8 @@ extension UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    
+    /// 保存時のアラート省略を促す
     func showOmitAlert() {
         /// 画像の保存に成功
         let alert = UIAlertController(title: "今後はアラートを非表示にしますか？", message: "非表示にするとよりスムーズに画像の管理ができます", preferredStyle: .alert)
@@ -68,9 +74,10 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    /// 画像保存失敗時のアラートを表示
     func showAlertForSaveImageFailuer() {
         /// 画像の保存に失敗
-        let alert = UIAlertController(title: "エラー", message: "保存に失敗しました", preferredStyle: .alert)
+        let alert = UIAlertController(title: "写真を保存できませんでした", message: "設定から「写真」へのアクセスを許可してください", preferredStyle: .alert)
         // OKボタンを追加
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         // UIAlertController を表示

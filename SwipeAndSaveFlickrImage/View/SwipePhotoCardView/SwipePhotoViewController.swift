@@ -25,9 +25,7 @@ final class SwipePhotoViewController: UIViewController {
         }
     }
     
-    // MARK: - Fileprivate Function
-    
-    /// 画面上にカードを追加する
+    /// 画面上に次のPhotoカードを追加
     fileprivate func addPhotoCardSetViews() {
         if currentNum >= photos!.count { return }
         
@@ -63,7 +61,7 @@ final class SwipePhotoViewController: UIViewController {
         }
     }
 
-    /// 現在配列に格納されている(画面上にカードの山として表示されている)Viewの拡大縮小を調節する
+    /// 画面上にカードの山として表示されているViewの拡大縮小を調節する
     fileprivate func changeScaleToCardSetViews(skipSelectedView: Bool = false) {
 
         /// アニメーション関連の定数値
@@ -87,22 +85,16 @@ final class SwipePhotoViewController: UIViewController {
     
     // MARK: - スワイプ後の処理
     
-    // model
-    /**
-     画像保存する際のアラートを表示
-     OKであれば画像を保存する
-     画像取得後、希望者にはアラートを非表示にする設定を付与
-     :param: targetImage : 保存対象の画像
-     */
+    /// 画像をギャラリーへ保存
+    /// - Parameter targetImage: 保存する画像
     fileprivate func saveImage (targetImage: UIImage?) {
         guard let image = targetImage else { return }
 
-        // TODO info.plistの設定追加
         if UserDefaults.standard.object(forKey: "omitConfirmationFlg") == nil {
             /// 非表示希望者以外（初回のユーザ含む）には保存についての確認をアラートで表示
             showAlertForPhotoSave {
                 // OKが押されたら写真を保存
-                // その後保存に成功したら特定のメソッどぉ実行
+                // その後保存に成功したら次回以降の表示省略に関するメソッドを実行
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showConfirmOfOmitAlert(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         } else {
@@ -111,12 +103,7 @@ final class SwipePhotoViewController: UIViewController {
         }
     }
     
-    // TODO Utilsへ移動
-    /**
-     画像保存実行後のアラートを表示する
-     保存成功した場合、今後の非表示希望についての確認アラートを表示
-     保存失敗時は簡易なアラートを表示
-     */
+    /// 非表示希望を確認するアラートを表示する
     @objc func showConfirmOfOmitAlert(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
 
         if error == nil {
