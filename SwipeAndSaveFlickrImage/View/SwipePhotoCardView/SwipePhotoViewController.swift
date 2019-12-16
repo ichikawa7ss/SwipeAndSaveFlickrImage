@@ -11,57 +11,47 @@ import UIKit
 final class SwipePhotoViewController: UIViewController {
 
     public var photos: [Photo]?
-    public var firstIndex = 0
+    public var currentNum = 0
     
     // カード表示用のViewを格納するための配列
     fileprivate var swipePhotoList: [SwipePhotoCardView] = []
-    
-    private var currentLastPhotoNum = 0
-    
-    public var selectedPhoto:(Photo,Int)?
 
-    // 一度に追加するカード枚数の上限値
-    fileprivate let photoCardSetViewCountLimit: Int = 10
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.addPhotoCardSetViews(bounds:
-            self.setLoadPhotoRange(photoNum: self.photos!.count, isInit: true))
-
+        // 初回は５枚分PhotoCardを追加
+        for _ in 1...5  {
+            self.addPhotoCardSetViews()
+        }
     }
     
     // MARK: - Fileprivate Function
     
     /// 画面上にカードを追加する
-    fileprivate func addPhotoCardSetViews(bounds: (Int,Int)) {
-
-        let min = bounds.0
-        var max = bounds.1
-        /// 取得画像数以上に読み込もうとした場合、取得できる上限を個別に設定
-        if bounds.1 >= self.photos!.count {
-            max = self.photos!.count
-        }
+    fileprivate func addPhotoCardSetViews() {
+        if currentNum >= photos!.count { return }
         
-        for index in min ..< max {
-
-            /// photoCardSetViewのインスタンスを作成してプロトコル宣言やタッチイベント等の初期設定を行う
-            let photoCardSetView = SwipePhotoCardView()
-            photoCardSetView.delegate = (self as SwipePhotoCardViewDelegate)
-            photoCardSetView.setViewData(self.photos![index])
-            photoCardSetView.isUserInteractionEnabled = false
-            self.swipePhotoList.append(photoCardSetView)
+        // photoCardのインスタンス作成・プロトコル宣言・タッチイベントの初期設定を行う
+        let photoCardSetView = SwipePhotoCardView()
+        photoCardSetView.delegate = (self as SwipePhotoCardViewDelegate)
+        photoCardSetView.setViewData(self.photos![currentNum])
+        photoCardSetView.isUserInteractionEnabled = false
+        
+        // 表示用配列に追加
+        self.swipePhotoList.append(photoCardSetView)
             
-            /// 現在表示されているカードの背面へ新たに作成したカードを追加する
-            self.view.addSubview(photoCardSetView)
-            self.view.sendSubviewToBack(photoCardSetView)
-        }
-
+        /// 現在表示されているカードの背面へ新たに作成したカードを追加する
+        self.view.addSubview(photoCardSetView)
+        self.view.sendSubviewToBack(photoCardSetView)
+        
         /// swipePhotoListに格納されているViewのうち、先頭にあるViewのみを操作可能にする
         enableUserInteractionToFirstCardSetView()
         
         /// 画面上にあるカードの山の拡大縮小比を調節する
         changeScaleToCardSetViews(skipSelectedView: false)
+        
+        // 表示Photoをインクリメント
+        currentNum += 1
     }
 
     /// 画面上にあるカードの山のうち、一番上にあるViewのみを操作できるようにする
@@ -97,61 +87,6 @@ final class SwipePhotoViewController: UIViewController {
     
     // MARK: - スワイプ後の処理
     
-    
-    /// presenter
-    /// 単位回数画像をスワイプしたとき（設定では５回）に次の画像を取得する指示を出す
-    fileprivate func setAdditionPhotoByUnitTimes () {
-        
-        currentLastPhotoNum += 1
-        
-        let addPhotoUnitNum = photoCardSetViewCountLimit/2
-        
-        let addFlg = (currentLastPhotoNum % addPhotoUnitNum == 0)
-
-        if addFlg{
-            /// 次の画像を取得
-            self.addPhotoCardSetViews(bounds: self.setLoadPhotoRange(photoNum: addPhotoUnitNum, isInit: false))
-
-        }
-    }
-    
-    /**
-     画像を取得する際にシングルトンから取得する画像のindexの範囲を決めるメソッド
-     初回読み込み時には、選択画像から数えて10個の画像を取得する
-     :param: photoNum : シングルトンに取得している画像の数
-     :param: isInit : 初回フラグ
-     :returns: 取得する画像のindexの最小値と最大値
-     */
-    private func setLoadPhotoRange(photoNum: Int,isInit : Bool) -> (Int,Int){
-        var minOfRange = 0
-        var maxOfRange = photoCardSetViewCountLimit
-        
-        if isInit {
-            /// 選択されたPhotoにindexが渡されていれば選択したPhotoから表示を開始
-            if let index = self.selectedPhoto?.1  {
-                minOfRange = index
-                currentLastPhotoNum = index
-            }
-            
-            maxOfRange = minOfRange + photoCardSetViewCountLimit
-            
-            if photoNum >= photoCardSetViewCountLimit {
-                /// 一度に追加するのは上限値まで
-                /// デフォルトのまま
-            } else {
-                /// 上限以下の場合には取得枚数分だけ画像を取得する
-                maxOfRange = self.photos!.count
-            }
-        } else {
-            /// 設定値の半分を閲覧したら閲覧した分を追加する
-            minOfRange = currentLastPhotoNum + (photoCardSetViewCountLimit/2)
-            maxOfRange = minOfRange + (photoCardSetViewCountLimit/2)
-        }
-        
-        return (minOfRange,maxOfRange)
-        
-    }
-    
     // model
     /**
      画像保存する際のアラートを表示
@@ -186,6 +121,7 @@ final class SwipePhotoViewController: UIViewController {
         }
     }
     
+    // TODO Utilsへ移動
     /**
      画像保存実行後のアラートを表示する
      保存成功した場合、今後の非表示希望についての確認アラートを表示
@@ -235,7 +171,7 @@ extension SwipePhotoViewController: SwipePhotoCardViewDelegate {
     }
     /// 左方向へのスワイプが完了した際にViewController側で実行する処理
     func cardViewDidSwipeLeftPosition(_ cardView: SwipePhotoCardView) {
-        setAdditionPhotoByUnitTimes()
+        self.addPhotoCardSetViews()
         swipePhotoList.removeFirst()
         enableUserInteractionToFirstCardSetView()
         changeScaleToCardSetViews(skipSelectedView: false)
@@ -243,7 +179,7 @@ extension SwipePhotoViewController: SwipePhotoCardViewDelegate {
     /// 右方向へのスワイプが完了した際にViewController側で実行する処理
     func cardViewDidSwipeRightPosition(_ cardView: SwipePhotoCardView) {
         saveImage(targetImage: cardView.photoImageView.image)
-        setAdditionPhotoByUnitTimes()
+        self.addPhotoCardSetViews()
         swipePhotoList.removeFirst()
         enableUserInteractionToFirstCardSetView()
         changeScaleToCardSetViews(skipSelectedView: false)

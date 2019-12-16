@@ -101,7 +101,7 @@ extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let swipePhotoViewController = storyboard.instantiateViewController(withIdentifier: "swipePhotoViewController") as! SwipePhotoViewController
         swipePhotoViewController.photos = presenter.photos
-        swipePhotoViewController.firstIndex = photoNum
+        swipePhotoViewController.currentNum = photoNum
         
         swipePhotoViewController.modalPresentationStyle = .fullScreen
         self.present(swipePhotoViewController, animated: true, completion: nil)
