@@ -19,6 +19,12 @@ final class SwipePhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 初回はアラート表示
+        if UserDefaults.standard.object(forKey: "firstUseSwipeVC") == nil {
+            UserDefaults.standard.set(1, forKey: "firstUseSwipeVC")
+            showOkAlert(title: "右スワイプで簡単保存ができます！")
+        }
+        
         // 初回は５枚分PhotoCardを追加
         for _ in 1...5  {
             self.addPhotoCardSetViews()

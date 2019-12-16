@@ -20,6 +20,13 @@ final class FlickrPhotoCollectionViewController: UIViewController {
             
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 初回はアラート表示
+        if UserDefaults.standard.object(forKey: "firstUseCollectionVC") == nil {
+            UserDefaults.standard.set(1, forKey: "firstUseCollectionVC")
+            showOkAlert(title: "キーワードでおしゃれな画像を検索しましょう！")
+        }
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
@@ -97,13 +104,13 @@ extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
     }
     
     func transitionToCardView(photoNum: Int) {
-        // TODO: inject()の形でpresenterも注入する
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let swipePhotoViewController = storyboard.instantiateViewController(withIdentifier: "swipePhotoViewController") as! SwipePhotoViewController
         swipePhotoViewController.photos = presenter.photos
         swipePhotoViewController.currentNum = photoNum
         
-        swipePhotoViewController.modalPresentationStyle = .fullScreen
-        self.present(swipePhotoViewController, animated: true, completion: nil)
+        swipePhotoViewController.title = "Swipe mode"
+        navigationController?.pushViewController(swipePhotoViewController, animated: true)
     }
 }
