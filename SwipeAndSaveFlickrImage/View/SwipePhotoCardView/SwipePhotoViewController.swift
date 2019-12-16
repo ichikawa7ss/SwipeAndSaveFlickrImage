@@ -100,21 +100,11 @@ final class SwipePhotoViewController: UIViewController {
         // TODO info.plistの設定追加
         if UserDefaults.standard.object(forKey: "omitConfirmationFlg") == nil {
             /// 非表示希望者以外（初回のユーザ含む）には保存についての確認をアラートで表示
-            let alertController = UIAlertController(title: "iPhoneへの保存", message: "この画像をiPhoneへ保存しますか？", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
-                /// OKが選択されればアルバムに画像を保存し、アラートの表示設定について確認
+            showAlertForPhotoSave {
+                // OKが押されたら写真を保存
+                // その後保存に成功したら特定のメソッどぉ実行
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.showConfirmOfOmitAlert(_:didFinishSavingWithError:contextInfo:)), nil)
             }
-
-            let cancelAction = UIAlertAction(title: "キャンセル", style: .default) { (cancel) in
-                alertController.dismiss(animated: true, completion: nil)
-            }
-            
-            alertController.addAction(cancelAction)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-            
         } else {
             /// 非表示希望者はアラートなしで画像を保存
             UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
@@ -130,33 +120,13 @@ final class SwipePhotoViewController: UIViewController {
     @objc func showConfirmOfOmitAlert(_ image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeMutableRawPointer) {
 
         if error == nil {
-            /// 画像の保存に成功
-            let alert = UIAlertController(title: "今後はアラートを非表示にしますか？", message: "非表示にするとよりスムーズに画像の管理ができます", preferredStyle: .alert)
-
-            let okAction = UIAlertAction(title: "OK", style: .default) { (ok) in
-                /// 非表示希望者にはユーザデフォルトでフラグを立てる
-                UserDefaults.standard.set(1, forKey: "omitConfirmationFlg")
-            }
-            
-            let cancelAction = UIAlertAction(title: "キャンセル", style: .default) { (cancel) in
-                alert.dismiss(animated: true, completion: nil)
-            }
-            
-            //OKとCANCELを表示追加し、アラートを表示
-            alert.addAction(cancelAction)
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-
+            // 画像保存に成功したら次回以降の省略を促すアラートを表示
+            showOmitAlert()
         } else {
-            /// 画像の保存に失敗
-            let alert = UIAlertController(title: "エラー", message: "保存に失敗しました", preferredStyle: .alert)
-            // OKボタンを追加
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            // UIAlertController を表示
-            self.present(alert, animated: true, completion: nil)
+            // 画像保存に失敗したらその旨を伝えるアラートを表示
+            showAlertForSaveImageFailuer()
         }
     }
-
 }
 
 // MARK: - PhotoCardSetDelegate
