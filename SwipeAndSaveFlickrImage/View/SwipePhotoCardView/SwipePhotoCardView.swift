@@ -236,7 +236,7 @@ class SwipePhotoCardView: UIView {
             origin: CGPoint.zero,
             size: CGSize(
                 width: 350,
-                height: 600
+                height: 500
             )
         )
         

@@ -18,13 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let searchPhotoViewController = storyboard.instantiateInitialViewController() as! FlickrPhotoCollectionViewController
-
+        let navigationViewController = UINavigationController(rootViewController: searchPhotoViewController)
+        searchPhotoViewController.title = "Search Flickr's Photo"
+        
         let model = SearchPhotoModel()
         let presenter = SearchPhotoPresenter(view: searchPhotoViewController, model: model)
         searchPhotoViewController.inject(presenter: presenter)
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = searchPhotoViewController
+        window?.rootViewController = navigationViewController
         window?.makeKeyAndVisible()
         
         return true

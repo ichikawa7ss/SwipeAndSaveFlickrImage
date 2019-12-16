@@ -20,13 +20,22 @@ final class FlickrPhotoCollectionViewController: UIViewController {
             
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 初回はアラート表示
+        if UserDefaults.standard.object(forKey: "firstUseCollectionVC") == nil {
+            UserDefaults.standard.set(1, forKey: "firstUseCollectionVC")
+            showOkAlert(title: "キーワードでおしゃれな画像を検索しましょう！")
+        }
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         searchBar.delegate = self
+        
         // セルのサイジング
         setupCell()
     }
     
+    /// セルの紐付けとサイジング設定の実施
     func setupCell () {
         //セルの登録
         let nib = UINib(nibName: "FlickrPhotoCollectionViewCell", bundle: Bundle.main)
@@ -46,6 +55,7 @@ final class FlickrPhotoCollectionViewController: UIViewController {
 // MARK:  - UICollectionViewDelegate
 extension FlickrPhotoCollectionViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // プレゼンターに処理を委譲
         presenter.didSelectItem(at: indexPath)
     }
 }
@@ -62,8 +72,10 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // IBのセルと紐付け
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath)as! FlickrPhotoCollectionViewCell
 
+        // photo構造体のurlから画像を取得
         if let url = presenter.photo(forItem: indexPath.row)?.url {
             let placeholderImage = UIImage(systemName: "photo")
             cell.flickrPhotoImage.af_setImage(withURL: url, placeholderImage: placeholderImage)
@@ -78,6 +90,8 @@ extension FlickrPhotoCollectionViewController: UICollectionViewDataSource {
 // MARK: - UISearchBarDelegate
 extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // 検索ボタン押下時にキーボードを閉じる
+        searchBar.resignFirstResponder()
         do {
             // 検索処理をpuresenterへ委譲
             try presenter.didTapSearchButton(text: searchBar.text)
@@ -92,18 +106,29 @@ extension FlickrPhotoCollectionViewController: UISearchBarDelegate {
 
 // MARK:  - UICollectionViewDelegate
 extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
-    func updatePhotos(_ photos: [Photo]) {
+    /// 画像一覧を更新
+    func updatePhotos(photos: [Photo]) {
+        // 検索結果が0ならアラートを出し、画面更新はしない
+        if (photos.count == 0) {
+            showOkAlert(title: "検索にヒットする画像はありませんでした")
+            return
+        }
+        
+        // 0以上なら画面を更新
         collectionView.reloadData()
     }
     
+    /// スワイプ画面に遷移
     func transitionToCardView(photoNum: Int) {
-        // TODO: inject()の形でpresenterも注入する
+        // 次の画面を定義
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let swipePhotoViewController = storyboard.instantiateViewController(withIdentifier: "swipePhotoViewController") as! SwipePhotoViewController
+        
+        // 写真配列と選択された画像の番号を次の画面へ渡す
         swipePhotoViewController.photos = presenter.photos
         swipePhotoViewController.currentNum = photoNum
         
-        swipePhotoViewController.modalPresentationStyle = .fullScreen
-        self.present(swipePhotoViewController, animated: true, completion: nil)
+        swipePhotoViewController.title = "Swipe mode"
+        navigationController?.pushViewController(swipePhotoViewController, animated: true)
     }
 }
