@@ -97,7 +97,13 @@ extension FlickrPhotoCollectionViewController: SearchPhotoPresenterOutput {
     }
     
     func transitionToCardView(photoNum: Int) {
-        print("Tinder風画面へ遷移")
-        let photos = presenter.photos
+        // TODO: inject()の形でpresenterも注入する
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let swipePhotoViewController = storyboard.instantiateViewController(withIdentifier: "swipePhotoViewController") as! SwipePhotoViewController
+        swipePhotoViewController.photos = presenter.photos
+        swipePhotoViewController.currentNum = photoNum
+        
+        swipePhotoViewController.modalPresentationStyle = .fullScreen
+        self.present(swipePhotoViewController, animated: true, completion: nil)
     }
 }

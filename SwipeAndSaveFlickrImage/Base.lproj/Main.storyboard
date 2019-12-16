@@ -52,5 +52,20 @@
             </objects>
             <point key="canvasLocation" x="-661" y="-36"/>
         </scene>
+        <!--Swipe Photo View Controller-->
+        <scene sceneID="hMj-Xf-jmn">
+            <objects>
+                <viewController storyboardIdentifier="swipePhotoViewController" id="es9-p7-Vmt" customClass="SwipePhotoViewController" customModule="SwipeAndSaveFlickrImage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SaH-b1-gho">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="0rt-29-6gg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M7Y-OR-oMl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="39" y="-32"/>
+        </scene>
     </scenes>
 </document>
